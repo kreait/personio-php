@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Personio
 {
-    const DEFAULT_APP_NAME = 'default';
+    private const DEFAULT_APP_NAME = 'default';
 
     private static $apps = [];
 
