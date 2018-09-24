@@ -94,4 +94,16 @@ class Personio
 
         return self::$apps[$name];
     }
+
+    public static function forget(string $name = null): void
+    {
+        $name = $name ?? self::DEFAULT_APP_NAME;
+
+        unset(self::$apps[$name]);
+    }
+
+    public static function reset(): void
+    {
+        self::$apps = [];
+    }
 }
