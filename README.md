@@ -2,6 +2,11 @@
 
 An SDK to access the Persion API.
 
+[![Current version](https://img.shields.io/packagist/v/kreait/personio.svg)](https://packagist.org/packages/kreait/personio)
+[![Supported PHP version](https://img.shields.io/packagist/php-v/kreait/personio.svg)]()
+[![Build Status](https://travis-ci.com/kreait/personio-php.svg?branch=master)](https://travis-ci.com/kreait/personio-php)
+[![GitHub license](https://img.shields.io/github/license/kreait/personio-php.svg)](https://github.com/kreait/personio-php/blob/master/LICENSE)
+
 ## Installation
 
 ```bash
