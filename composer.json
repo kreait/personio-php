@@ -1,0 +1,40 @@
+{
+    "name": "kreait/personio",
+    "description": "An SDK to work with the Personio API",
+    "keywords": ["personio", "api", "sdk"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérôme Gamez",
+            "email": "jerome@gamez.name"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.0",
+        "psr/http-message": "^1.0",
+        "symfony/options-resolver": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3",
+        "symfony/var-dumper": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreait\\Personio\\": "src/Personio"
+        },
+        "files": [
+            "src/Personio.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreait\\Personio\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
