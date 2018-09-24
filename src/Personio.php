@@ -17,9 +17,10 @@ class Personio
 
     private static $apps = [];
 
-    public static function initializeApp(array $options = null, string $name = self::DEFAULT_APP_NAME): App
+    public static function initializeApp(array $options = null, string $name = null): App
     {
         $options = $options ?? [];
+        $name = $name ?? self::DEFAULT_APP_NAME;
 
         if ($name === '') {
             throw new \DomainException('Invalid app name provided. App name must be a non-empty string.');
@@ -69,8 +70,10 @@ class Personio
         return $app;
     }
 
-    public static function app(string $name = self::DEFAULT_APP_NAME): App
+    public static function app(string $name = null): App
     {
+        $name = $name ?? self::DEFAULT_APP_NAME;
+
         if ($name === '') {
             throw new \DomainException('Invalid app name "'.$name.'" provided. App name must be a non-empty string.');
         }
