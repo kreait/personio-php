@@ -13,14 +13,18 @@ composer require kreait/personio
 ```php
 use Kreait\Personio;
 
-$app = Personio::initializeApp([
-    'client_id' => getenv('PERSONIO_CLIENT_ID'),
-    'client_secret' => getenv('PERSONIO_CLIENT_SECRET'),
-]);
+try {
+    $app = Personio::initializeApp([
+        'client_id' => getenv('PERSONIO_CLIENT_ID'),
+        'client_secret' => getenv('PERSONIO_CLIENT_SECRET'),
+    ]);
 
-$employees = $app->api()->getEmployees();
-$employee = $app->api()->getEmployee($id);
-$attendances = $app->api()->getAttendances();
-$timeOffs = $app->api()->getTimeOffs();
-$timeOff = $app->api()->getTimeOff($id);
+    $employees = $app->api()->getEmployees();
+    $employee = $app->api()->getEmployee($employeeId);
+    $attendances = $app->api()->getAttendances();
+    $timeOffs = $app->api()->getTimeOffs();
+    $timeOff = $app->api()->getTimeOff($timeOffId);
+} catch (Personio\Error $e) {
+    echo $e->getMessage();
+}
 ```

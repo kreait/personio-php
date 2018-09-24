@@ -8,7 +8,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Kreait\Personio\ApiClient;
 use Kreait\Personio\App;
+use Kreait\Personio\Error\InvalidConfiguration;
 use Kreait\Personio\Http\PersonioAuthentication;
+use Symfony\Component\OptionsResolver\Exception\ExceptionInterface as OptionsResolverException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Personio
@@ -23,12 +25,12 @@ class Personio
         $name = $name ?? self::DEFAULT_APP_NAME;
 
         if ($name === '') {
-            throw new \DomainException('Invalid app name provided. App name must be a non-empty string.');
+            throw InvalidConfiguration::because('Invalid app name provided. App name must be a non-empty string.');
         }
 
         if (array_key_exists($name, self::$apps)) {
             if (self::DEFAULT_APP_NAME === $name) {
-                throw new \DomainException(
+                throw InvalidConfiguration::because(
                     'The default Personio app already exists. This means you called initializeApp() '
                     .'more than once without providing an app name as the second argument. In most cases '
                     .'you only need to call initializeApp() once. But if you do want to initialize '
@@ -37,7 +39,7 @@ class Personio
                 );
             }
 
-            throw new \DomainException(
+            throw InvalidConfiguration::because(
                 'A Personio app named "'.$name.'" already exists. This means you called initializeApp() '
                 .'more than once with the same app name as the second argument. Make sure you provide a '
                 .'unique name every time you call initializeApp().'
@@ -52,7 +54,11 @@ class Personio
         ]);
         $resolver->setRequired(['client_id', 'client_secret']);
 
-        $config = $resolver->resolve($options);
+        try {
+            $config = $resolver->resolve($options);
+        } catch (OptionsResolverException | \Throwable $e) {
+            throw InvalidConfiguration::because($e->getMessage(), $e);
+        }
 
         $stack = HandlerStack::create();
         $stack->push(new PersonioAuthentication($config['client_id'], $config['client_secret']));
@@ -75,19 +81,15 @@ class Personio
         $name = $name ?? self::DEFAULT_APP_NAME;
 
         if ($name === '') {
-            throw new \DomainException('Invalid app name "'.$name.'" provided. App name must be a non-empty string.');
+            throw InvalidConfiguration::because('Invalid app name "'.$name.'" provided. App name must be a non-empty string.');
         }
 
         if (!array_key_exists($name, self::$apps)) {
             if (self::DEFAULT_APP_NAME === $name) {
-                throw new \DomainException(
-                    'The default app does not exist. Make sure you call initializeApp() first.'
-                );
+                throw InvalidConfiguration::because('The default app does not exist. Make sure you call initializeApp() first.');
             }
 
-            throw new \DomainException(
-                'An app named "'.$name.'" does not exist. Make sure you call initializeApp() first.'
-            );
+            throw InvalidConfiguration::because('An app named "'.$name.'" does not exist. Make sure you call initializeApp() first.');
         }
 
         return self::$apps[$name];
