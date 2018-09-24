@@ -1,6 +1,6 @@
 # Personio PHP SDK
 
-An SDK to access the Persion API.
+A PHP SDK to work with the [Personio](https://www.personio.de/) API.
 
 [![Current version](https://img.shields.io/packagist/v/kreait/personio.svg)](https://packagist.org/packages/kreait/personio)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/kreait/personio.svg)]()
@@ -22,13 +22,16 @@ try {
     $app = Personio::initializeApp([
         'client_id' => getenv('PERSONIO_CLIENT_ID'),
         'client_secret' => getenv('PERSONIO_CLIENT_SECRET'),
+        'debug' => false, // default
     ]);
 
-    $employees = $app->api()->getEmployees();
-    $employee = $app->api()->getEmployee($employeeId);
-    $attendances = $app->api()->getAttendances();
-    $timeOffs = $app->api()->getTimeOffs();
-    $timeOff = $app->api()->getTimeOff($timeOffId);
+    $employees = $app->getEmployees(); 
+    $employee = $app->getEmployee($id);
+    
+    $timeOffs = $app->getTimeOffPeriods();
+    $timeOff = $app->getTimeOffPeriod($id);
+    
+    
 } catch (Personio\Error $e) {
     echo $e->getMessage();
 }
