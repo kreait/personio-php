@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.0.1 - 2018-09-25
 
 * Fixed conflicts between tightenco/collect and illuminate/support when using
   the library in a Laravel context
