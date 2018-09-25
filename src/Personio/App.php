@@ -22,7 +22,7 @@ class App
     /**
      * @return Collection|Employee[]
      */
-    public function getEmployees(): Collection
+    public function getEmployees()
     {
         /** @var Collection $employees */
         $employees = $this->client->getEmployees()
@@ -67,7 +67,7 @@ class App
     /**
      * @return Collection|TimeOffPeriod[]
      */
-    public function getTimeOffPeriods(): Collection
+    public function getTimeOffPeriods()
     {
         return $this->client->getTimeOffs()
             ->then(function (array $data) {
@@ -95,7 +95,7 @@ class App
     /**
      * @return Collection|\Kreait\Personio\TimeOffPeriod\Type[]
      */
-    public function getTimeOffPeriodTypes(): Collection
+    public function getTimeOffPeriodTypes()
     {
         // @todo There's no documented time off types endpoint, so we're faking it until there is
         return $this->getTimeOffPeriods()
@@ -111,7 +111,7 @@ class App
             ->values();
     }
 
-    private function getParsedEmployeesFromTimeOffs(): Collection
+    private function getParsedEmployeesFromTimeOffs()
     {
         return $this->client->getTimeOffs()
             ->then(function (array $data) {
